@@ -30,7 +30,7 @@ export const Header = () => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="label text-concrete transition-colors hover:text-bone"
+                  className="nav-link label text-concrete transition-colors hover:text-bone"
                 >
                   {item.label}
                 </Link>

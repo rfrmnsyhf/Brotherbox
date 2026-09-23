@@ -32,14 +32,14 @@ export const Crew = () => (
         {CREW.map((person, i) => {
           const branch = BRANCHES.find((b) => b.slug === person.branchSlug);
           return (
-            <Reveal as="li" key={person.id} delay={i * 60}>
-              <article className="h-full overflow-hidden rounded-xl border border-white/10 bg-carbon-soft">
+            <li><Reveal key={person.id} delay={i * 60}>
+              <article className="group h-full overflow-hidden rounded-xl border border-white/10 bg-carbon-soft transition-colors hover:border-signal/40">
                 {person.image ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img
                     src={person.image}
                     alt={person.name}
-                    className="aspect-square w-full object-cover"
+                    className="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                   />
                 ) : (
@@ -69,7 +69,7 @@ export const Crew = () => (
                   </ul>
                 </div>
               </article>
-            </Reveal>
+            </Reveal></li>
           );
         })}
       </ul>
@@ -100,7 +100,7 @@ export const Reviews = () => (
 
       <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {REVIEWS.map((review, i) => (
-          <Reveal as="li" key={review.id} delay={i * 60}>
+          <li><Reveal key={review.id} delay={i * 60}>
             <figure className="flex h-full flex-col rounded-xl border border-white/10 bg-carbon-soft p-6">
               <Quote className="size-6 text-signal" aria-hidden />
               <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-bone">
@@ -111,7 +111,7 @@ export const Reviews = () => (
                 <Stars rating={review.rating} />
               </figcaption>
             </figure>
-          </Reveal>
+          </Reveal></li>
         ))}
       </ul>
     </Container>
@@ -131,21 +131,31 @@ export const Instagram = () => (
 
       <ul className="mt-12 grid grid-cols-2 gap-4 lg:grid-cols-4">
         {INSTAGRAM_POSTS.map((post, i) => (
-          <Reveal as="li" key={post.id} delay={i * 50}>
+          <li><Reveal key={post.id} delay={i * 50}>
             <a
               href={post.url}
               target="_blank"
               rel="noopener noreferrer"
               className="block overflow-hidden rounded-xl border border-white/10 bg-carbon-soft transition-colors hover:border-signal/40"
             >
-              <PlaceholderFrame
-                label="Foto dari Instagram"
-                ratio="aspect-square"
-                flush
-              />
+              {post.image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={post.image}
+                  alt={post.caption}
+                  className="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                />
+              ) : (
+                <PlaceholderFrame
+                  label="Foto dari Instagram"
+                  ratio="aspect-square"
+                  flush
+                />
+              )}
               <p className="p-4 text-xs text-concrete">{post.caption}</p>
             </a>
-          </Reveal>
+          </Reveal></li>
         ))}
       </ul>
 

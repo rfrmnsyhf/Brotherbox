@@ -5,6 +5,7 @@
  * so the grid never reflows from zero and no JS is needed to see the content.
  */
 import { useMemo, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { CUT_STYLES, CUT_TAGS } from "@/lib/data";
 import { Reveal } from "../reveal";
 import { Container, PlaceholderFrame, SectionLabel, SectionTitle } from "../ui";
@@ -64,43 +65,62 @@ export const Gallery = () => {
           {tag !== "all" ? ` untuk filter “${tag}”` : ""}.
         </p>
 
-        <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {visible.map((style, i) => (
-            <Reveal as="li" key={style.id} delay={i * 50}>
-              <article className="group overflow-hidden rounded-xl border border-white/10 bg-carbon-soft">
-                {style.image ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={style.image}
-                    alt={`Contoh gaya ${style.name}`}
-                    className="aspect-[4/3] w-full object-cover"
-                    loading="lazy"
-                  />
-                ) : (
-                  <PlaceholderFrame label={style.name} flush />
-                )}
-                <div className="p-5">
-                  <h3 className="font-display text-lg font-extrabold uppercase">
-                    {style.name}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-concrete">
-                    {style.reason}
-                  </p>
-                  <ul className="mt-4 flex flex-wrap gap-1.5">
-                    {style.tags.map((t) => (
-                      <li
-                        key={t}
-                        className="label rounded-full bg-white/5 px-2.5 py-1 text-concrete ring-1 ring-white/10"
-                      >
-                        {t}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </ul>
+        <motion.ul
+          layout
+          className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          <AnimatePresence mode="popLayout">
+            {visible.map((style, i) => (
+              <motion.li
+                key={style.id}
+                layout
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 30,
+                  delay: i * 0.04,
+                }}
+              >
+                <Reveal>
+                  <article className="group h-full overflow-hidden rounded-xl border border-white/10 bg-carbon-soft transition-colors hover:border-signal/40">
+                    {style.image ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={style.image}
+                        alt={`Contoh gaya ${style.name}`}
+                        className="aspect-[4/3] w-full overflow-hidden object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <PlaceholderFrame label={style.name} flush />
+                    )}
+                    <div className="p-5">
+                      <h3 className="font-display text-lg font-extrabold uppercase transition-transform duration-300 group-hover:-translate-y-0.5">
+                        {style.name}
+                      </h3>
+                      <p className="mt-2 text-sm leading-relaxed text-concrete">
+                        {style.reason}
+                      </p>
+                      <ul className="mt-4 flex flex-wrap gap-1.5">
+                        {style.tags.map((t) => (
+                          <li
+                            key={t}
+                            className="label rounded-full bg-white/5 px-2.5 py-1 text-concrete ring-1 ring-white/10"
+                          >
+                            {t}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </article>
+                </Reveal>
+              </motion.li>
+            ))}
+          </AnimatePresence>
+        </motion.ul>
 
         {visible.length === 0 ? (
           <p className="mt-10 text-center text-sm text-concrete">

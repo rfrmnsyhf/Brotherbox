@@ -11,6 +11,7 @@
    in one object so "back" is just an index change — no history needed.
    ========================================================================== */
 import { useMemo, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { ArrowLeft, ArrowUpRight, RotateCcw } from "lucide-react";
 import { BRANCHES, CUT_STYLES } from "@/lib/data";
 import { bookingLink, recommendStyles, type QuizAnswers } from "@/lib/utils";
@@ -143,8 +144,16 @@ export const KnowYourCut = () => {
               </div>
             </div>
 
-            {!done ? (
-              <div className="px-6 py-8">
+            <AnimatePresence mode="wait" initial={false}>
+              {!done ? (
+                <motion.div
+                  key={`q-${step}`}
+                  initial={{ opacity: 0, x: 32 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -32 }}
+                  transition={{ type: "spring", stiffness: 260, damping: 28 }}
+                  className="px-6 py-8"
+                >
                 <fieldset>
                   <legend className="font-display text-xl leading-tight font-extrabold text-carbon uppercase sm:text-2xl">
                     {question.title}
@@ -205,63 +214,80 @@ export const KnowYourCut = () => {
                     <ArrowUpRight className="size-4" aria-hidden />
                   </button>
                 </div>
-              </div>
-            ) : (
-              <div className="px-6 py-8" aria-live="polite">
-                <h3 className="font-display text-xl font-extrabold text-carbon uppercase">
-                  Rekomendasi kamu
-                </h3>
-                <p className="mt-2 text-sm text-concrete-deep">
-                  Diurutkan dari yang paling cocok. Tunjukkan ini ke barber kamu.
-                </p>
-
-                <ol className="mt-6 space-y-4">
-                  {results.map(({ style }, i) => (
-                    <li
-                      key={style.id}
-                      className="flex flex-col gap-3 rounded-lg border border-carbon/15 p-5 sm:flex-row sm:items-center sm:justify-between"
-                    >
-                      <div className="max-w-xl">
-                        <p className="label text-signal-deep">
-                          {i === 0 ? "Paling cocok" : `Pilihan ${i + 1}`}
-                        </p>
-                        <h4 className="font-display mt-1 text-lg font-extrabold text-carbon uppercase">
-                          {style.name}
-                        </h4>
-                        <p className="mt-1.5 text-sm leading-relaxed text-concrete-deep">
-                          {style.reason}
-                        </p>
-                      </div>
-                      <a
-                        href={bookingLink(BRANCHES[0], style.name)}
-                        data-booking
-                        data-service={style.name}
-                        data-note={`dari Know Your Cut: ${note}`}
-                        className="label inline-flex shrink-0 items-center justify-center gap-2 rounded-md bg-carbon px-5 py-3 text-bone"
-                      >
-                        Booking gaya ini
-                        <ArrowUpRight className="size-3.5" aria-hidden />
-                      </a>
-                    </li>
-                  ))}
-                </ol>
-
-                {results.length === 0 ? (
-                  <p className="mt-6 text-sm text-concrete-deep">
-                    Jawaban belum lengkap. Ulangi kuis untuk melihat hasil.
-                  </p>
-                ) : null}
-
-                <button
-                  type="button"
-                  onClick={reset}
-                  className="label mt-8 inline-flex items-center gap-2 rounded-md border border-carbon/20 px-5 py-3 text-carbon transition-colors hover:bg-carbon/5"
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="results"
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 26 }}
+                  className="px-6 py-8"
+                  aria-live="polite"
                 >
-                  <RotateCcw className="size-4" aria-hidden />
-                  Ulangi kuis
-                </button>
-              </div>
-            )}
+                  <h3 className="font-display text-xl font-extrabold text-carbon uppercase">
+                    Rekomendasi kamu
+                  </h3>
+                  <p className="mt-2 text-sm text-concrete-deep">
+                    Diurutkan dari yang paling cocok. Tunjukkan ini ke barber
+                    kamu.
+                  </p>
+
+                  <ol className="mt-6 space-y-4">
+                    {results.map(({ style }, i) => (
+                      <motion.li
+                        key={style.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 260,
+                          damping: 24,
+                          delay: i * 0.12,
+                        }}
+                        className="flex flex-col gap-3 rounded-lg border border-carbon/15 p-5 sm:flex-row sm:items-center sm:justify-between"
+                      >
+                        <div className="max-w-xl">
+                          <p className="label text-signal-deep">
+                            {i === 0 ? "Paling cocok" : `Pilihan ${i + 1}`}
+                          </p>
+                          <h4 className="font-display mt-1 text-lg font-extrabold text-carbon uppercase">
+                            {style.name}
+                          </h4>
+                          <p className="mt-1.5 text-sm leading-relaxed text-concrete-deep">
+                            {style.reason}
+                          </p>
+                        </div>
+                        <a
+                          href={bookingLink(BRANCHES[0], style.name)}
+                          data-booking
+                          data-service={style.name}
+                          data-note={`dari Know Your Cut: ${note}`}
+                          className="label inline-flex shrink-0 items-center justify-center gap-2 rounded-md bg-carbon px-5 py-3 text-bone"
+                        >
+                          Booking gaya ini
+                          <ArrowUpRight className="size-3.5" aria-hidden />
+                        </a>
+                      </motion.li>
+                    ))}
+                  </ol>
+
+                  {results.length === 0 ? (
+                    <p className="mt-6 text-sm text-concrete-deep">
+                      Jawaban belum lengkap. Ulangi kuis untuk melihat hasil.
+                    </p>
+                  ) : null}
+
+                  <button
+                    type="button"
+                    onClick={reset}
+                    className="label mt-8 inline-flex items-center gap-2 rounded-md border border-carbon/20 px-5 py-3 text-carbon transition-colors hover:bg-carbon/5"
+                  >
+                    <RotateCcw className="size-4" aria-hidden />
+                    Ulangi kuis
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </Reveal>
       </Container>

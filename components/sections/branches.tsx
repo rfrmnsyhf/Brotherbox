@@ -12,14 +12,14 @@ import {
 } from "../ui";
 
 export const BranchCard = ({ branch, index = 0 }: { branch: Branch; index?: number }) => (
-  <Reveal as="li" delay={index * 60}>
-    <article className="flex h-full flex-col overflow-hidden rounded-xl border border-white/10 bg-carbon-soft">
+  <li><Reveal delay={index * 60}>
+    <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-white/10 bg-carbon-soft transition-colors hover:border-signal/40">
       {branch.image ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={branch.image}
           alt={`Cabang ${branch.name}`}
-          className="aspect-[4/3] w-full object-cover"
+          className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
           loading="lazy"
         />
       ) : (
@@ -75,7 +75,7 @@ export const BranchCard = ({ branch, index = 0 }: { branch: Branch; index?: numb
         </div>
       </div>
     </article>
-  </Reveal>
+  </Reveal></li>
 );
 
 export const BranchSelector = () => (

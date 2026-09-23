@@ -36,8 +36,8 @@ export const Menu = () => (
 
       <ul className="mt-12 divide-y divide-white/10 border-y border-white/10">
         {SERVICES.map((service, i) => (
-          <Reveal as="li" key={service.id} delay={i * 40}>
-            <div className="group flex flex-col gap-4 py-6 sm:flex-row sm:items-center sm:justify-between">
+          <li><Reveal key={service.id} delay={i * 40}>
+            <div className="group -mx-3 flex flex-col gap-4 rounded-lg px-3 py-6 transition-colors hover:bg-white/[0.03] sm:flex-row sm:items-center sm:justify-between">
               <div className="max-w-2xl">
                 <div className="flex flex-wrap items-center gap-3">
                   <h3 className="font-display text-xl leading-tight font-extrabold uppercase">
@@ -59,7 +59,13 @@ export const Menu = () => (
               </div>
 
               <div className="flex items-center gap-5 sm:flex-col sm:items-end sm:gap-2">
-                <span className="font-display text-2xl font-extrabold whitespace-nowrap">
+                {/* Dotted leader: classic printed-menu cue. Grows on hover so
+                 * the eye is pulled name -> price. */}
+                <span
+                  className="mx-1 hidden flex-1 self-end border-b border-dotted border-white/25 transition-colors group-hover:border-signal/50 sm:mb-2.5 sm:block"
+                  aria-hidden
+                />
+                <span className="font-display text-2xl font-extrabold transition-transform duration-300 group-hover:-translate-y-0.5 whitespace-nowrap">
                   {formatPrice(service.price)}
                 </span>
                 <a
@@ -73,7 +79,7 @@ export const Menu = () => (
                 </a>
               </div>
             </div>
-          </Reveal>
+          </Reveal></li>
         ))}
       </ul>
     </Container>

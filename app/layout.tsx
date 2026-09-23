@@ -58,6 +58,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="id" className={`${archivo.variable} ${inter.variable}`}>
+      {/* Motion sets inline opacity:0 on first paint. Without JS the content
+          would stay invisible, so force it visible here. */}
+      <noscript>
+        <style>{`[style*="opacity:0"]{opacity:1 !important;transform:none !important}`}</style>
+      </noscript>
       <body className="min-h-dvh bg-carbon text-bone antialiased">
         {/* First tab stop: jump straight to content. */}
         <a
@@ -76,6 +81,9 @@ export default function RootLayout({
         {/* One dialog for the whole page; triggers are plain links. */}
         <BookingDialog />
         <MobileCta />
+
+        {/* Film grain over everything. pointer-events:none, so inert. */}
+        <div className="grain" aria-hidden />
       </body>
     </html>
   );

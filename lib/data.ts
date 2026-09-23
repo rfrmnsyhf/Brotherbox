@@ -69,7 +69,7 @@ export const BRANCHES: Branch[] = [
     hours: { open: "10:00", close: "21:00" }, // TODO: jam buka asli
     closedDays: [],
     geo: null,
-    image: null,
+    image: "/images/branches/batu-9.jpg",
     note: "Cabang pertama. Dua kursi, satu barber senior.",
   },
   {
@@ -83,7 +83,7 @@ export const BRANCHES: Branch[] = [
     hours: { open: "10:00", close: "21:00" },
     closedDays: [],
     geo: null,
-    image: null,
+    image: "/images/branches/wiratno.jpg",
     note: "Dekat pusat kota, parkir paling gampang.",
   },
   {
@@ -97,7 +97,7 @@ export const BRANCHES: Branch[] = [
     hours: { open: "10:00", close: "21:00" },
     closedDays: [],
     geo: null,
-    image: null,
+    image: "/images/branches/batu-5-bawah.jpg",
     note: "Walk-in friendly, antrean paling cepat.",
   },
   {
@@ -111,7 +111,7 @@ export const BRANCHES: Branch[] = [
     hours: { open: "10:00", close: "22:00" },
     closedDays: [],
     geo: null,
-    image: null,
+    image: "/images/branches/tiban-centre.jpg",
     note: "Cabang terbesar di Batam. Empat kursi.",
   },
   {
@@ -125,7 +125,7 @@ export const BRANCHES: Branch[] = [
     hours: { open: "10:00", close: "21:00" },
     closedDays: [],
     geo: null,
-    image: null,
+    image: "/images/branches/tiban-impian.jpg",
     note: "Spesialis fade dan hair tattoo.",
   },
   {
@@ -139,7 +139,7 @@ export const BRANCHES: Branch[] = [
     hours: { open: "10:00", close: "21:00" },
     closedDays: [],
     geo: null,
-    image: null,
+    image: "/images/branches/bengkong-ratu.jpg",
     note: "Sering buka paling pagi buat yang sebelum kerja.",
   },
   {
@@ -153,7 +153,7 @@ export const BRANCHES: Branch[] = [
     hours: { open: "10:00", close: "22:00" },
     closedDays: [],
     geo: null,
-    image: null,
+    image: "/images/branches/kepri-mall.jpg",
     note: "Ikut jam mall. Bisa ditelepon sambil belanja.",
   },
   {
@@ -167,7 +167,7 @@ export const BRANCHES: Branch[] = [
     hours: { open: "11:00", close: "22:00" },
     closedDays: [],
     geo: null,
-    image: null,
+    image: "/images/branches/nagoya.jpg",
     note: "Buka paling malam. Cocok buat setelah shift.",
   },
 ];
@@ -296,7 +296,7 @@ export const CUT_STYLES: CutStyle[] = [
     effort: "low",
     reason:
       "Bagian atas dibiarkan bertekstur sementara sisi dipendekkan, jadi wajah bulat dapat kesan lebih panjang tanpa perlu styling tiap hari.",
-    image: null,
+    image: "/images/cuts/textured-crop.jpg",
   },
   {
     id: "mid-fade",
@@ -308,7 +308,7 @@ export const CUT_STYLES: CutStyle[] = [
     effort: "medium",
     reason:
       "Transisi fade di tengah kepala menyeimbangkan wajah persegi dan tetap terlihat rapi sampai dua minggu.",
-    image: null,
+    image: "/images/cuts/mid-fade.jpg",
   },
   {
     id: "classic-side-part",
@@ -320,7 +320,7 @@ export const CUT_STYLES: CutStyle[] = [
     effort: "high",
     reason:
       "Belahan samping memberi struktur pada wajah panjang dan paling pas buat yang kerja formal.",
-    image: null,
+    image: "/images/cuts/classic-side-part.jpg",
   },
   {
     id: "buzz-cut",
@@ -332,7 +332,7 @@ export const CUT_STYLES: CutStyle[] = [
     effort: "low",
     reason:
       "Hampir tanpa perawatan. Wajah oval dan persegi jadi paling tegas tanpa perlu apa-apa lagi.",
-    image: null,
+    image: "/images/cuts/buzz-cut.jpg",
   },
   {
     id: "curly-taper",
@@ -344,7 +344,7 @@ export const CUT_STYLES: CutStyle[] = [
     effort: "medium",
     reason:
       "Volume keriting dipertahankan di atas, sisi dirapikan bertingkat. Bentuk rambut jadi aset, bukan masalah.",
-    image: null,
+    image: "/images/cuts/curly-taper.jpg",
   },
   {
     id: "slick-back",
@@ -356,7 +356,7 @@ export const CUT_STYLES: CutStyle[] = [
     effort: "high",
     reason:
       "Membuka seluruh garis dahi sehingga wajah terlihat penuh dan berwibawa. Butuh disisir tiap hari.",
-    image: null,
+    image: "/images/cuts/slick-back.jpg",
   },
   {
     id: "french-crop",
@@ -368,7 +368,7 @@ export const CUT_STYLES: CutStyle[] = [
     effort: "low",
     reason:
       "Fringe pendek di depan menutup dahi tinggi dan memberi ilusi wajah lebih pendek. Paling gampang dirawat.",
-    image: null,
+    image: "/images/cuts/french-crop.jpg",
   },
   {
     id: "long-flow",
@@ -380,7 +380,7 @@ export const CUT_STYLES: CutStyle[] = [
     effort: "high",
     reason:
       "Rambut dibiarkan panjang dengan layer supaya jatuh alami. Perlu trim rutin tiap 6–8 minggu.",
-    image: null,
+    image: "/images/cuts/long-flow.jpg",
   },
 ];
 
@@ -403,35 +403,35 @@ export type Crew = {
 export const CREW: Crew[] = [
   {
     id: "crew-1",
-    name: "TODO: nama barber 1",
+    name: "Barber 01",
     role: "Head Barber",
     branchSlug: "batu-9",
     specialties: ["Classic Cut", "Hot Towel Shave"],
-    image: null,
+    image: "/images/crew/barber-01.jpg",
   },
   {
     id: "crew-2",
-    name: "TODO: nama barber 2",
+    name: "Barber 02",
     role: "Senior Barber",
     branchSlug: "tiban-centre",
     specialties: ["Skin Fade", "Hair Tattoo"],
-    image: null,
+    image: "/images/crew/barber-02.jpg",
   },
   {
     id: "crew-3",
-    name: "TODO: nama barber 3",
+    name: "Barber 03",
     role: "Barber",
     branchSlug: "nagoya",
     specialties: ["Beard Sculpt", "Cut + Beard"],
-    image: null,
+    image: "/images/crew/barber-03.jpg",
   },
   {
     id: "crew-4",
-    name: "TODO: nama barber 4",
+    name: "Barber 04",
     role: "Barber",
     branchSlug: "kepri-mall",
     specialties: ["Kids Cut", "Curly Taper"],
-    image: null,
+    image: "/images/crew/barber-04.jpg",
   },
 ];
 
@@ -460,11 +460,37 @@ export const REVIEWS: Review[] = [
 /* ------------------------------------------------------------- instagram -- */
 
 /** FLAG: post URLs and captions are placeholders. */
-export const INSTAGRAM_POSTS: { id: string; url: string; caption: string }[] = [
-  { id: "ig1", url: "TODO: link post Instagram 1", caption: "TODO: caption" },
-  { id: "ig2", url: "TODO: link post Instagram 2", caption: "TODO: caption" },
-  { id: "ig3", url: "TODO: link post Instagram 3", caption: "TODO: caption" },
-  { id: "ig4", url: "TODO: link post Instagram 4", caption: "TODO: caption" },
+export const INSTAGRAM_POSTS: {
+  id: string;
+  url: string;
+  caption: string;
+  /** Path under /public. Null -> branded placeholder frame. */
+  image: string | null;
+}[] = [
+  {
+    id: "ig1",
+    url: "https://instagram.com/brotherbox.id", // TODO: link post asli
+    caption: "Skin fade dengan transisi tiga tingkat",
+    image: "/images/instagram/ig-01.jpg",
+  },
+  {
+    id: "ig2",
+    url: "https://instagram.com/brotherbox.id", // TODO: link post asli
+    caption: "Classic side part, rapi sampai minggu ketiga",
+    image: "/images/instagram/ig-02.jpg",
+  },
+  {
+    id: "ig3",
+    url: "https://instagram.com/brotherbox.id", // TODO: link post asli
+    caption: "Beard sculpt + hot towel shave",
+    image: "/images/instagram/ig-03.jpg",
+  },
+  {
+    id: "ig4",
+    url: "https://instagram.com/brotherbox.id", // TODO: link post asli
+    caption: "Textured crop untuk rambut bergelombang",
+    image: "/images/instagram/ig-04.jpg",
+  },
 ];
 
 /* ---------------------------------------------------------------- pricing -- */

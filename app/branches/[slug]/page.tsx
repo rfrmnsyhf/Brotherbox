@@ -202,21 +202,33 @@ export default async function BranchPage({
           {crew.length ? (
             <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {crew.map((person) => (
-                <Reveal as="li" key={person.id}>
-                  <article className="overflow-hidden rounded-xl border border-white/10 bg-carbon-soft">
-                    <PlaceholderFrame
-                      label="Foto barber"
-                      ratio="aspect-square"
-                      flush
-                    />
-                    <div className="p-5">
-                      <h3 className="font-display text-base font-extrabold uppercase">
-                        {person.name}
-                      </h3>
-                      <p className="label mt-1 text-signal">{person.role}</p>
-                    </div>
-                  </article>
-                </Reveal>
+                <li key={person.id}>
+                  <Reveal>
+                    <article className="overflow-hidden rounded-xl border border-white/10 bg-carbon-soft">
+                      {person.image ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={person.image}
+                          alt={person.name}
+                          className="aspect-square w-full object-cover"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <PlaceholderFrame
+                          label="Foto barber"
+                          ratio="aspect-square"
+                          flush
+                        />
+                      )}
+                      <div className="p-5">
+                        <h3 className="font-display text-base font-extrabold uppercase">
+                          {person.name}
+                        </h3>
+                        <p className="label mt-1 text-signal">{person.role}</p>
+                      </div>
+                    </article>
+                  </Reveal>
+                </li>
               ))}
             </ul>
           ) : (

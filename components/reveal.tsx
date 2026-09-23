@@ -1,56 +1,56 @@
 "use client";
 
-/* Scroll reveal via IntersectionObserver — replaces a motion library for the
-   one effect we actually need. Elements stay hidden only after JS confirms it
-   can reveal them, so a no-JS client sees full content (see globals.css). */
+/* Scroll reveal — spring physics via `motion`, directional by index so a grid
+ * doesn't look like a single block sliding up.
+ *
+ * `prefers-reduced-motion` is respected at the source (motion reads it
+ * natively); the variant simply resolves to a no-op transition there.
+ * Content is rendered regardless, only the animation is skipped. */
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { type ReactNode } from "react";
+import { motion, type HTMLMotionProps } from "motion/react";
+
+type Direction = "up" | "left" | "right";
+
+const OFFSET: Record<Direction, { x: number; y: number }> = {
+  up: { x: 0, y: 28 },
+  left: { x: -28, y: 0 },
+  right: { x: 28, y: 0 },
+};
+
+type RevealProps = {
+  children: ReactNode;
+  delay?: number;
+  className?: string;
+  /** Stagger direction. Defaults to "up". */
+  direction?: Direction;
+} & Omit<HTMLMotionProps<"div">, "children" | "className">;
 
 export const Reveal = ({
   children,
   delay = 0,
   className = "",
-  as: Tag = "div",
-}: {
-  children: ReactNode;
-  delay?: number;
-  className?: string;
-  as?: "div" | "li" | "article";
-}) => {
-  const ref = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    if (typeof IntersectionObserver === "undefined") {
-      el.dataset.revealed = "true";
-      return;
-    }
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          (entry.target as HTMLElement).dataset.revealed = "true";
-          io.unobserve(entry.target);
-        }
-      },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
-    );
-
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+  direction = "up",
+  ...rest
+}: RevealProps) => {
+  const offset = OFFSET[direction];
 
   return (
-    <Tag
-      ref={ref as never}
-      data-reveal=""
-      style={delay ? ({ "--reveal-delay": `${delay}ms` } as never) : undefined}
+    <motion.div
+      initial={{ opacity: 0, x: offset.x, y: offset.y }}
+      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      viewport={{ once: true, margin: "0px 0px -8% 0px" }}
+      transition={{
+        type: "spring",
+        stiffness: 120,
+        damping: 18,
+        mass: 0.9,
+        delay: delay / 1000,
+      }}
       className={className}
+      {...rest}
     >
       {children}
-    </Tag>
+    </motion.div>
   );
 };

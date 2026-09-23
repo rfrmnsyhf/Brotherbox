@@ -14,7 +14,7 @@ export const mapsHref = (branch: Branch): string =>
   )}`;
 
 const LocationRow = ({ branch, index }: { branch: Branch; index: number }) => (
-  <Reveal as="li" delay={index * 50}>
+  <li><Reveal delay={index * 50}>
     <div className="flex flex-col gap-4 py-6 sm:flex-row sm:items-center sm:justify-between">
       <div className="max-w-xl">
         <div className="flex flex-wrap items-center gap-3">
@@ -56,7 +56,7 @@ const LocationRow = ({ branch, index }: { branch: Branch; index: number }) => (
         </a>
       </div>
     </div>
-  </Reveal>
+  </Reveal></li>
 );
 
 export const Location = () => (
